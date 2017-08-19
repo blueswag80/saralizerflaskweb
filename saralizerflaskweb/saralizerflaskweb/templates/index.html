@@ -2,9 +2,20 @@
 
 {% block content %}
 
-<label class="custom-file">
-    <input type="file" id="file" class="customer-file-input" />
-    <span class="custom-file-control"></span>
-</label>
-
+<form action="/upload" method="POST" enctype="multipart/form-data">
+    <label class="custom-file">
+        <input type="file" name="file" class="custom-file-input btn btn-primary" />
+        <span class="custom-file-control"></span>
+    </label>
+    <input type="submit" class="btn btn-primary" value="Upload Sar Logs" name="submit" /> 
+</form>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class="flashes">
+        {% for message in messages %}
+           <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+  {% endif %} 
+{% endwith %}
 {% endblock %}

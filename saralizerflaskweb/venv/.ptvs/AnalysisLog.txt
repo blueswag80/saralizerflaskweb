@@ -5545,3 +5545,7 @@ System.FormatException: Input string was not in a correct format.
 2017-08-16T11:36:02: Deleting 2 files
 2017-08-16T11:36:02: Deleting "c:\users\michael.murphy\documents\visual studio 2017\Projects\saralizerflaskweb\saralizerflaskweb\venv\.ptvs\_dummy_threading.idb"
 2017-08-16T11:36:02: Deleting "c:\users\michael.murphy\documents\visual studio 2017\Projects\saralizerflaskweb\saralizerflaskweb\venv\.ptvs\_dummy__threading_local.idb"
+
+2017-08-18T16:19:57: Start analysis
+2017-08-18T16:19:57: IncludeModulesFromModulePath = win32com
+2017-08-18T16:19:58: Deleting 0 files
