@@ -28,6 +28,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="config\defaultconfig.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="runserver.py" />
     <Compile Include="saralizerflaskweb\filelogic.py">
       <SubType>Code</SubType>
@@ -39,6 +42,7 @@
     <Compile Include="saralizerflaskweb\views.py" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="config\" />
     <Folder Include="saralizerflaskweb\" />
     <Folder Include="saralizerflaskweb\static\" />
     <Folder Include="saralizerflaskweb\static\content\" />

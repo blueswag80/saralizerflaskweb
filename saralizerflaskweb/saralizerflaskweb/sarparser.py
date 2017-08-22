@@ -7,8 +7,7 @@ class sarparser(object):
 
     def analyzeSarLog(self):
         saritems = []
-        for line in self.sarfile.getContents():
-          
+        for line in self.sarfile.getContents():          
             if "Average:" in line:
                 return saritems
 
@@ -20,4 +19,3 @@ class sarparser(object):
             saritems.append(tokenline)
 
         return None
-
