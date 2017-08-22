@@ -29,6 +29,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="runserver.py" />
+    <Compile Include="saralizerflaskweb\filelogic.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="saralizerflaskweb\sarparser.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="saralizerflaskweb\__init__.py" />
     <Compile Include="saralizerflaskweb\views.py" />
   </ItemGroup>
@@ -66,6 +72,7 @@
     <Content Include="saralizerflaskweb\static\scripts\_references.js" />
     <Content Include="saralizerflaskweb\templates\about.html" />
     <Content Include="saralizerflaskweb\templates\contact.html" />
+    <Content Include="saralizerflaskweb\templates\graph.html" />
     <Content Include="saralizerflaskweb\templates\index.html" />
     <Content Include="saralizerflaskweb\templates\layout.html" />
   </ItemGroup>
