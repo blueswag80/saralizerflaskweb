@@ -263,3 +263,6 @@ __pycache__/
 
 #ignore test directories
 upload/
+
+#ignore virtual directory
+saralizerflaskweb/venv/
