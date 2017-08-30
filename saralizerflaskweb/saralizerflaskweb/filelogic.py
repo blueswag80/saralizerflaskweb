@@ -1,4 +1,4 @@
-from zipfile import ZipFile
+from zipfile import ZipFile, is_zipfile
 import os
 from os import listdir
 
@@ -18,7 +18,7 @@ class SarZipFile(object):
         self.zfile.extractall(path)
 
 
-    def checkUncompressedSize(self):
+    def check_Uncompressed_Size(self):
         zinfo = self.zfile.infolist()
         total = 0
 
@@ -29,19 +29,19 @@ class SarZipFile(object):
 
         return zinfo.file_size()
 
+    @staticmethod
+    def check_is_zipfile(zfile):
+        return is_zipfile(zfile)
+
 class SarFile(object):
     def __init__(self, sfile, path):
         self.sfile = sfile
         self.path = path
     
-    def getContents(self):
+    def get_Contents(self):
         with open(os.path.join(self.path, self.sfile), 'r') as infile:
             return infile.read().splitlines()
 
-@staticmethod
-def checkZipFile(self, zfile):
-    return zipfile.is_zipfile(zfile)
-
-def listsarlogs(path):
+def list_sar_logs(path):
     return listdir(path)
 
