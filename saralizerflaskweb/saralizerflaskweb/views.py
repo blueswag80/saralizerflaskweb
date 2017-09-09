@@ -13,12 +13,14 @@ from saralizerflaskweb.sarparser import SarParser
 from werkzeug.exceptions import RequestEntityTooLarge
 
 
-ALLOWED_EXTENSIONS = set(['gz', 'zip', 'sar'])
+ALLOWED_EXTENSIONS = ['gz', 'zip', 'sar']
 
-#Utility function for file uploads.
+
+# Utility function for file uploads.
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 
 @app.route('/')
 @app.route('/home')
@@ -30,6 +32,7 @@ def home():
         year=datetime.now().year,
     )
 
+
 @app.route('/contact')
 def contact():
     """Renders the contact page."""
@@ -40,6 +43,7 @@ def contact():
         message='Your contact page.'
     )
 
+
 @app.route('/about')
 def about():
     """Renders the about page."""
@@ -49,6 +53,7 @@ def about():
         year=datetime.now().year,
         message='Your application description page.'
     )
+
 
 @app.route('/upload', methods=["POST"])
 def upload():
@@ -75,21 +80,22 @@ def upload():
             
             zipfile = SarZipFile(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
-            if zipfile.check_Uncompressed_Size() > 95420416:
+            if zipfile.check_Uncompressed_Size() > app.config['MAX_ZIP_SIZE']:
                 flash('The zip file you uploaded would be too large to uncompress.')
                 return render_template('index.html')
 
             zipfile.unzip(os.path.join(app.config['UPLOAD_FOLDER'], 'outfolder'))
-            flash('All Done!')
-            return render_template('index.html')
-            #sarguy = SarParser(SarFile(filename, app.config['UPLOAD_FOLDER']))
-            #sarinfo = sarguy.analyze_Sar_Log()
-            #cpudatatemp = []
-            #for item in sarinfo:
-            #   cpudatatemp.append([item[0] + item[1], float(item[3])])
 
-            #return render_template('graph.html', cpudata=json.dumps(cpudatatemp))
-        
+            sarguy = SarParser(SarFile('sar01', app.config['UPLOAD_FOLDER'] + '/outfolder'))
+            sarinfo = sarguy.analyze_sar_log()
+            cpudatatemp = []
+            print(sarinfo['memoryinfo'])
+            for item in sarinfo['cpuinfo']:
+                cpudatatemp.append([item[0] + item[1], float(item[3])])
+
+            return render_template('graph.html', cpudata=json.dumps(cpudatatemp))
+
+
 @app.errorhandler(RequestEntityTooLarge)
 def handle_large_upload(error):
     flash('The zip file you uploaded would be too large to uncompress.')
