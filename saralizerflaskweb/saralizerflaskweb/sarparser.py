@@ -8,7 +8,7 @@ class SarParser(object):
 
     def analyze_sar_log(self):
         sardata = {}
-        sarcontents = self.sarfile.get_Contents()
+        sarcontents = self.sarfile.get_contents()
 
         sardata['cpuinfo'] = self.analyze_cpuinfo(sarcontents)
         sardata['memoryinfo'] = self.analyze_meminfo(sarcontents[self.location:])
