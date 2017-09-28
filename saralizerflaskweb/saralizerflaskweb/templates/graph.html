@@ -5,34 +5,75 @@
 <script type="text/javascript">
 
     google.charts.load('current', { 'packages': ['corechart', 'line'] });
-    google.charts.setOnLoadCallback(drawChart);
+    google.charts.setOnLoadCallback(drawCpuChart);
+    google.charts.setOnLoadCallback(drawMemoryChart);
 
-    function drawChart() {
+    function drawCpuChart() {
 
         var data = new google.visualization.DataTable()
 
-        data.addColumn('string', 'Time');
+        //data.addColumn('string', 'Time');
         data.addColumn('number', 'CPU Percent');
-        data.addColumn({type:'string', role:'tooltip'});
+        data.addColumn({ type: 'string', role: 'tooltip' });
 
 
-        data.addRows({{cpudata|safe}});
+        data.addRows({{ cpudata|safe }});
 
         var options = {
             hAxis: {
                 title: 'Time'
             },
             vAxis: {
-                title: 'CPU Percent'
+                title: 'CPU %'
+            },
+            explorer: {
+                actions: ['dragToZoom', 'rightClickToReset'],
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 4.0
             }
         };
         
-        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        var chart = new google.visualization.LineChart(document.getElementById('cpu_chart_div'));
         chart.draw(data, options);
         $(window).resize(function(){
             chart.draw(data, options);
         });
     }
+
+        function drawMemoryChart() {
+            var data = new google.visualization.DataTable()
+
+            data.addColumn('string', 'Time');
+            data.addColumn('number', 'Memory Percentage Used');
+            data.addColumn({ type: 'string', role: 'tooltip' });
+
+            data.addRows({{ memorydata|safe }});
+
+            var options = {
+                hAxis: {
+                    title: 'Time'
+                },
+            vAxis: {
+                    title: 'Memory %'
+                },
+            explorer: {
+                actions: ['dragToZoom', 'rightClickToReset'],
+                axis: 'horizontal',
+                keepInBounds: true,
+                maxZoomIn: 4.0
+            },
+            colors: ['#D44E41']
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('mem_chart_div'));
+            chart.draw(data, options);
+
+            $(window).resize(function () {
+                chart.draw(data, options);
+            });
+        }
+
 </script>
 
 
@@ -41,7 +82,7 @@
 {% endblock %}
 {% block content %}
 
-<div id="chart_div"></div>
-
+<div id="cpu_chart_div"></div>
+<div id="mem_chart_div"></div>
 
 {% endblock %}

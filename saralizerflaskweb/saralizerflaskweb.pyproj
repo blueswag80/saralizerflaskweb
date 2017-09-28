@@ -38,6 +38,7 @@
     <Compile Include="saralizerflaskweb\sarparser.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="saralizerflaskweb\util.py" />
     <Compile Include="saralizerflaskweb\__init__.py" />
     <Compile Include="saralizerflaskweb\views.py" />
   </ItemGroup>

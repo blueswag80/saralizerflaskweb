@@ -104,15 +104,18 @@ def upload():
             # sarinfo = sarguy.analyze_sar_log()
             # cpudata = [[cpudata['day'], cpudata['cpuinfo'][0] + cpudata['cpuinfo'][1], float(cpudata['cpuinfo'][3])] for cpudata in sardata]
             cpudatatemp = []
-            # cpuddaytemps = []
+            memorydatatemp = []
             for sarlog in sorted(sardata, key=lambda log: log['day']):
                 for cpu in sarlog['cpuinfo']:
-                    cpudatatemp.append([cpu[0] + cpu[1], float(cpu[3]), 'Day:' + str(sarlog['day']) + ' \n' +
+                    cpudatatemp.append([float(cpu[3]), 'Day:' + str(sarlog['day']) + ' \n' +
                                         'Time:' + cpu[0] + cpu[1] + '\n' + 'CPU Percentage:' + cpu[3]])
+                for memory in sarlog['memoryinfo']:
+                    memorydatatemp.append([memory[0] + memory[1], float(memory[4]), 'Day:' + str(sarlog['day']) + ' \n' +
+                                        'Time:' + memory[0] + memory[1] + '\n' + 'Memory Used Percentage:' + memory[4]])
 
             # cpudatatemp.append([data['day'], data['cpuinfo'][0] + data['cpuinfo'][1], float(data['cpuinfo'][3])])
             remove_sar_logs(uploadpath)
-            return render_template('graph.html', cpudata=json.dumps(cpudatatemp))
+            return render_template('graph.html', cpudata=json.dumps(cpudatatemp[0::6]), memorydata=json.dumps(memorydatatemp[0::6]))
 
 
 @app.errorhandler(RequestEntityTooLarge)
